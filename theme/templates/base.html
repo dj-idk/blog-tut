@@ -1,0 +1,33 @@
+{% load static tailwind_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="synthwave">
+
+<head>
+	<title>{% block title %}{% endblock %}</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	{% tailwind_css %}
+</head>
+
+<body class="font-sans leading-normal tracking-normal">
+	<!-- Navbar -->
+	<div class="navbar px-10 bg-neutral">
+		<div class="navbar-start ">
+			<a class="btn btn-ghost text-xl font-bold" href="{% url 'home-page' %}">Candleman's Blog</a>
+		</div>
+		<div class="navbar-center hidden lg:flex">
+
+		</div>
+		<div class="navbar-end">
+			<a class="btn btn-ghost font-semibold transition ease-in-out  hover:-translate-y-0.5 hover:scale-105 hover:duration-500"
+				href="{% url 'posts-page' %}">All
+				Posts</a>
+		</div>
+	</div>
+	{% block content %}
+	{% endblock %}
+</body>
+
+</html>

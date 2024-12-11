@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+{% load static tailwind_tags %}
+
+{% block title %}
+Candleman's Blog
+{% endblock %}
+
+
+{% block content %}
+
+<!-- Bio Preview -->
+<div class="container px-20">
+    <div class="flex py-20 items-center">
+        <div class="flex-none size-1/4 overflow-hidden rounded-2xl border-2 justify-center items-center -rotate-6">
+            <img src="{% static 'blog/images/candleman.jpg' %}" alt="Candleman's Image"
+                class="hover:animate-pulse 0.5s delay-100 transition ease-in-out">
+        </div>
+        <div class="flex-auto px-9 pl-20 py-10">
+            <p
+                class="text-6xl text-white drop-shadow-2xl font-extrabold space-x-4 hover:scale-105 origin-top-left duration-100">
+                About Candleman
+            </p>
+            <p
+                class="text-4xl text-white tracking-wide text-wrap justify-stretch overflow-auto rounded-3xl drop-shadow-2 py-5 hover:drop-shadow-2xl ">
+                I like building something from the scratch. I enjoy programming, rockhounding,
+                music production, and anything else that can fulfil my intellectual
+                curiosity.</p>
+        </div>
+    </div>
+</div>
+<!-- Latest Posts Text -->
+<div class="container flex items-center justify-center">
+    <div
+        class="h-[120px] w-[1080px] p-10 py-10 bg-neutral hover:bg-[#2e1065] rounded-xl flex items-center justify-center self-auto">
+        <p class="text-4xl font-bold ">Latest Posts</p>
+    </div>
+</div>
+<!-- Posts Grid -->
+{% include 'blog/includes/post.html' %}
+{% endblock %}
