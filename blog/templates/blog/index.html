@@ -10,32 +10,52 @@ Candleman's Blog
 {% block content %}
 
 <!-- Bio Preview -->
-<div class="container px-20">
-    <div class="flex py-20 items-center">
-        <div class="flex-none size-1/4 overflow-hidden rounded-2xl border-2 justify-center items-center -rotate-6">
-            <img src="{% static 'blog/images/candleman.jpg' %}" alt="Candleman's Image"
-                class="hover:animate-pulse 0.5s delay-100 transition ease-in-out">
+<div class="container bg-black/20 w-[100vw] overflow-hidden">
+    <div
+        class="bg-[#2a176f] w-[600px] scale-y-150 translate-x-50 -translate-y-40 h-[100vh] absolute -z-10 top-0 right-0 -rotate-45 drop-shadow-sm">
+    </div>
+    <div class="flex pt-20 justify-center w-[100vw] h-full">
+        <div
+            class="flex-none shrink-0 basis-1/2 h-full overflow-hidden rounded-2xl items-end justify-center transition-all duration-200 ease-in-out drop-shadow-none hover:drop-shadow-2xl cursor-pointer">
+            <img src="{% static 'blog/images/jamal.rar.webp' %}" alt="Candleman's Image"
+                class="  0.5s delay-100 transition ease-in-out origin-bottom w-[500px] min-w-[500px] min-h-[500px] h-[500px]">
         </div>
-        <div class="flex-auto px-9 pl-20 py-10">
-            <p
-                class="text-6xl text-white drop-shadow-2xl font-extrabold space-x-4 hover:scale-105 origin-top-left duration-100">
-                About Candleman
-            </p>
-            <p
-                class="text-4xl text-white tracking-wide text-wrap justify-stretch overflow-auto rounded-3xl drop-shadow-2 py-5 hover:drop-shadow-2xl ">
-                I like building something from the scratch. I enjoy programming, rockhounding,
-                music production, and anything else that can fulfil my intellectual
-                curiosity.</p>
+        <div class="  h-[500px]  overflow-visible basis-1/2 flex justify-center items-center">
+            <div>
+                <p
+                    class="text-3xl select-none cursor-default text-white drop-shadow-2xl font-extrabold space-x-4 hover:scale-105 origin-top-left duration-100 w-full">
+                    About Candleman
+                </p>
+                <p
+                    class="text-2x w-[500px] text-white tracking-wide text-wrap justify-stretch rounded-3xl drop-shadow-2 py-5 hover:drop-shadow-2xl relative z-[1000]">
+                    I like building something from the scratch. I enjoy programming, rockhounding,
+                    music production, and anything else that can fulfil my intellectual
+                    curiosity. And I eat books for survival take care of your companies book shelf</p>
+            </div>
         </div>
     </div>
 </div>
 <!-- Latest Posts Text -->
-<div class="container flex items-center justify-center">
-    <div
-        class="h-[120px] w-[1080px] p-10 py-10 bg-neutral hover:bg-[#2e1065] rounded-xl flex items-center justify-center self-auto">
-        <p class="text-4xl font-bold ">Latest Posts</p>
+<div class="bg-[#1E1739] relative z-10 w-[100vw] h-auto pt-8">
+
+    <div class="flex w-full px-5 mt-0 lg:px-20 items-center justify-center ">
+
+        <div
+            class="h-[120px] w-full flex justify-center items-center p-10 py-10 bg-neutral hover:bg-[#2e1065] rounded-xl  self-auto">
+            <p class="text-4xl font-bold ">Latest Posts</p>
+        </div>
+    </div>
+    <div class="container flex items-center justify-center">
+
+    </div>
+    <!-- Posts Grid -->
+    <div class="w-full flex px-5 lg:px-20 justify-center">
+
+        <div class="grid gap-8 grid-cols-1 lg:grid-cols-2 3 py-8 w-full items-center justify-center self-auto">
+            {% for post in latest_posts %}
+            {% include 'blog/includes/post.html' %}
+            {% endfor %}
+        </div>
     </div>
 </div>
-<!-- Posts Grid -->
-{% include 'blog/includes/post.html' %}
 {% endblock %}

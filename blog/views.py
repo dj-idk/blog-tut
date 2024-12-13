@@ -1,8 +1,10 @@
 from django.shortcuts import render
+from .models import Post
 
 
 def index(request):
-    return render(request, "blog/index.html")
+    latest_posts = Post.objects.all().order_by("-date")[:3]
+    return render(request, "blog/index.html", {"latest_posts": latest_posts})
 
 
 def posts(request):
