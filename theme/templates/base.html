@@ -11,11 +11,12 @@
 	{% tailwind_css %}
 </head>
 
-<body class="font-sans leading-normal tracking-normal relative z-100">
+<body class="font-sans leading-normal tracking-normal relative z-100 overflow-none">
 	<!-- Navbar -->
 	<div class="navbar fixed z-20 px-10 bg-neutral">
 		<div class="navbar-start ">
-			<a class="btn btn-ghost text-xl font-bold" href="{% url 'home-page' %}">Candleman's Blog</a>
+			<a class="btn btn-ghost font-bold text-xl sm:text-xl md:text-2xl lg:text-2xl"
+				href="{% url 'home-page' %}">Candleman's Blog</a>
 		</div>
 		<div class="navbar-center hidden lg:flex">
 

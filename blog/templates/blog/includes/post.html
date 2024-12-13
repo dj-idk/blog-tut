@@ -2,15 +2,21 @@
 {% load static tailwind_tags %}
 
 
-<div class="card rounded-xl overflow-hidden card-side bg-transparent shadow-xl">
-    <img src="{% static 'blog/images/'|add:post.image_name %}" class=" w-1/2 object-cover" alt="Album" />
-    <div class="card-body transition-all duration-200 ease-in-out p-2">
-        <h2 class="card-title pt-4 px-4">{{ post.title }}</h2>
-        <div class="w-full px-4 text-justify">{{ post.excerpt }}</div>
-        <div class="card-actions justify-end">
-            <button
-                class="px-4 py-2 mb-3 mr-3 rounded-lg flex justify-center items-center text-white hover:bg-[#31298f] bg-[#4338ca] transition-colors duration-200 ease-in-out cursor-pointer">Read
-                More</button>
+<div class="card rounded-xl overflow-hidden bg-transparent shadow-xl flex flex-col h-full">
+    <!-- Image Section with Fixed Size -->
+    <img src="{% static 'blog/images/'|add:post.image_name %}" class="w-full object-cover h-64 sm:h-72 lg:h-80"
+        alt="Album" />
+
+    <div class="card-body p-4 flex flex-col justify-between h-full">
+        <h2 class="card-title text-xl font-bold mb-4">{{ post.title }}</h2>
+        <div class="w-full text-justify text-sm text-gray-300 mb-6">
+            {{ post.excerpt }}
+        </div>
+        <div class="relative mt-auto">
+            <a class="px-4 py-3 rounded-lg text-white bg-[#4338ca] hover:bg-[#31298f] transition-colors duration-200 ease-in-out cursor-pointer"
+                href="{% url 'post-detail-page' post.slug %}">
+                Read More
+            </a>
         </div>
     </div>
 </div>
