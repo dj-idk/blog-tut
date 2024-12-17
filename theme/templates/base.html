@@ -8,25 +8,52 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script>
+		function toggleMenu() {
+			const menu = document.getElementById('mobile-menu');
+			menu.classList.toggle('hidden');
+		}
+	</script>
+	{% block css_styles %}{% endblock %}
 	{% tailwind_css %}
 </head>
 
 <body class="font-sans leading-normal tracking-normal relative z-100 overflow-none">
 	<!-- Navbar -->
-	<div class="navbar fixed z-20 px-10 bg-neutral">
-		<div class="navbar-start ">
+	<div class="navbar px-10 bg-neutral">
+		<div class="navbar-start">
 			<a class="btn btn-ghost font-bold text-xl sm:text-xl md:text-2xl lg:text-2xl"
 				href="{% url 'home-page' %}">Candleman's Blog</a>
 		</div>
 		<div class="navbar-center hidden lg:flex">
-
+			<!-- You can add any center items here if needed -->
 		</div>
-		<div class="navbar-end">
-			<a class="btn btn-ghost font-semibold transition ease-in-out  hover:-translate-y-0.5 hover:scale-105 hover:duration-500"
-				href="{% url 'posts-page' %}">All
-				Posts</a>
+		<div class="navbar-end flex items-center space-x-6">
+			<!-- Desktop view -->
+			<a class="btn btn-ghost font-semibold transition ease-in-out hover:-translate-y-0.5 hover:scale-105 hover:duration-500"
+				href="{% url 'posts-page' %}">All Posts</a>
+			<a class="btn btn-ghost font-semibold transition ease-in-out hover:-translate-y-0.5 hover:scale-105 hover:duration-500"
+				href="{% url 'read-later' %}">My Favorite Posts</a>
+
+			<!-- Mobile view (Hamburger menu) -->
+			<button class="lg:hidden btn btn-ghost text-2xl" onclick="toggleMenu()">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+					class="w-6 h-6">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+					</path>
+				</svg>
+			</button>
 		</div>
 	</div>
+
+	<!-- Mobile menu -->
+	<div id="mobile-menu" class="lg:hidden hidden absolute top-16 left-0 right-0 bg-neutral p-4 space-y-4">
+		<a class="btn btn-ghost font-semibold transition ease-in-out hover:-translate-y-0.5 hover:scale-105 hover:duration-500 block"
+			href="{% url 'posts-page' %}">All Posts</a>
+		<a class="btn btn-ghost font-semibold transition ease-in-out hover:-translate-y-0.5 hover:scale-105 hover:duration-500 block"
+			href="{% url 'read-later' %}">My Favorite Posts</a>
+	</div>
+
 	{% block content %}
 	{% endblock %}
 </body>

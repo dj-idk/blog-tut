@@ -1,19 +1,20 @@
 {% extends "base.html" %}
 {% load static %}
 {% load static tailwind_tags %}
-
-{% block title %}
-{{ post.title }}
-{% endblock %}
-
-{% block content %}
+{%load widget_tweaks %}
+{% block title %} {{ post.title }} {% endblock %}
+{% block css_styles %}
+<link rel="stylesheet" href="{% static 'blog/post_details.css' %}" />
+{% endblock %} {% block content %}
 <div class="flex items-center justify-center py-10 px-6">
     <div class="grid gap-6 max-w-[1080px] text-center">
         <!-- Title -->
-        <h1 class="text-5xl font-bold text-white/75 hover:text-white mt-10 mx-5 cursor-pointer">{{post.title}}</h1>
+        <h1 class="text-5xl font-bold text-white/75 hover:text-white mt-10 mx-5 cursor-pointer">
+            {{post.title}}
+        </h1>
 
         <!-- Image -->
-        <img src="{% static 'blog/images/'|add:post.image_name %}" alt="Album"
+        <img src="{{post.image.url}}" alt="Album"
             class="rounded-lg opacity-70 hover:opacity-100 object-cover aspect w-full h-[500px] hover:drop-shadow-2xl cursor-pointer duration-300 ease-in-out" />
 
         <div class="flex flex-wrap justify-start items-center text-center gap-2 mt-2">
@@ -24,20 +25,84 @@
                 {{ tag.caption }}
             </span>
             {% empty %}
-            <span class="bg-white rounded-full px-4 py-2 text-sm text-gray-700">No tags
-                available</span>
+            <span class="bg-white rounded-full px-4 py-2 text-sm text-gray-700">No tags available</span>
             {% endfor %}
+            <div class="flex-grow"></div> <!-- Spacer to push the button to the end -->
+            <form action="{% url 'read-later' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="post_id" value="{{ post.id }}">
+                <button
+                    class="btn-outline border border-gray-300 rounded-full px-4 py-2 text-sm transition duration-300 ease-in-out 
+    {% if is_saved_for_later %}bg-white text-gray-900{% else %}text-gray-400 hover:bg-[#7e82a5] hover:text-white{% endif %}">
+                    {% if is_saved_for_later %}
+                    Remove From Read Later
+                    {% else %}
+                    Add To Read Later
+                    {% endif %}
+                </button>
+
+            </form>
         </div>
+
+
+
 
         <!-- Paragraph -->
         <div
             class="flex justify-between h-[16] w-full items-center p-6 rounded-xl hover:bg-[#31298f] bg-[#4338ca] duration-300 ease-in-out">
-            <p class="text-muted text-md text-left">Last Updated on {{post.date|date:"M/d/Y"|title}} </p>
-            <p class="text-muted text-md text-right">Written by {{post.author|title}} </p>
+            <p class="text-muted text-md text-left">
+                Last Updated on {{post.date|date:"M/d/Y"|title}}
+            </p>
+            <p class="text-muted text-md text-right">
+                Written by {{post.author|title}}
+            </p>
         </div>
-        <p class="text-xl text-white text-justify p-6 rounded-xl bg-[#544b64] hover:bg-[#81739a] cursor-default">
+        <p
+            class="text-xl text-white text-justify p-6 rounded-xl bg-[#544b64] hover:bg-[#81739a] duration-300 ease-in-out cursor-default">
             {{post.content}}
         </p>
+        <!-- Comment Form -->
+        <div class="text-xl bg-[#544b64] text-justify p-6 rounded-xl cursor-default">
+            <form class="text-black" action="" method="POST">
+                {% csrf_token %} {% for field in comment_form %}
+                <div class="form-control mb-4">
+                    <!-- Label for field -->
+                    <label class="block text-sm font-semibold text-white 00 mb-2">{{ field.label }}</label>
+
+                    <!-- Form Field -->
+                    <div class="relative">
+                        <!-- prettier-ignore -->
+                        {{ field|add_class:"text-black"}}
+                        <!-- Field Errors -->
+                        <div class="text-sm text-red-500 mt-1">{{ field.errors }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <!-- Comment Button -->
+                <button type="submit"
+                    class="rounded-full px-4 py-2 text-sm text-white hover:bg-[#31298f] bg-[#4338ca] transition duration-300 ease-in-out cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#31298f] active:bg-[#31298f]">
+                    Comment
+                </button>
+            </form>
+        </div>
+        <!-- Comments -->
+        <div class="bg-[#544b64] text-justify p-6 rounded-xl cursor-default items-center justify-center">
+            {% for comment in comments %}
+            <div
+                class="flex flex-col md:flex-row w-full bg-[#2f2b36] hover:bg-[#81739a] duration-300 ease-in-out py-4 md:py-6 my-4 md:my-6 rounded-xl overflow-hidden">
+                <div
+                    class="text-lg md:text-2xl font-bold flex justify-center px-2 md:px-4 md:w-[25%] text-center break-all max-w-full">
+                    {{comment.username}}
+                </div>
+                <div class="px-2 md:px-4 md:w-[75%] break-all max-w-full">
+                    {{comment.text}}
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center">No Comments are available for this post!</p>
+            {% endfor %}
+        </div>
     </div>
 </div>
 

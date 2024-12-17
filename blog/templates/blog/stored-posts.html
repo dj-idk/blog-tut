@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+{% load tailwind_tags %}
+
+{% block title %}
+Saved Posts
+{% endblock %}
+
+{% block content %}
+<div class="bg-[#1E1739] relative z-10 w-full pt-16 lg:pt-24">
+    <!-- Adjusted padding-top to avoid being covered by the navbar -->
+    <div class="flex w-full px-5 lg:px-20 items-center justify-center mb-8">
+        <p class="text-4xl font-bold text-white mt-12">Saved Posts</p>
+    </div>
+
+    <!-- Posts Grid -->
+    <div class="w-full h-full flex px-5 lg:px-20 justify-center">
+        <div
+            class="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-8 w-full items-center justify-center">
+            {% for post in posts %}
+            {% include 'blog/includes/post.html' %}
+            {% empty %}
+            <p class="text-xl text-gray-400">No saved posts found.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

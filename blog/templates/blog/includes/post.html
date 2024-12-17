@@ -1,19 +1,24 @@
-{% load static %}
 {% load static tailwind_tags %}
 
 
 <div class="card rounded-xl overflow-hidden bg-transparent shadow-xl flex flex-col h-full">
     <!-- Image Section with Fixed Size -->
-    <img src="{% static 'blog/images/'|add:post.image_name %}" class="w-full object-cover h-64 sm:h-72 lg:h-80"
-        alt="Album" />
+    <div class="h-72 w-full overflow-hidden">
+        <img src="{{ post.image.url }}" class="w-full h-full object-cover" alt="Album" />
+    </div>
 
-    <div class="card-body p-4 flex flex-col justify-between h-full">
-        <h2 class="card-title text-xl font-bold mb-4">{{ post.title }}</h2>
-        <div class="w-full text-justify text-sm text-gray-300 mb-6">
+    <div class="card-body p-4 flex flex-col h-full">
+        <!-- Title Section -->
+        <h2 class="card-title text-xl font-bold mb-2">{{ post.title }}</h2>
+
+        <!-- Excerpt Section -->
+        <div class="w-full text-justify text-sm text-gray-300 mb-4">
             {{ post.excerpt }}
         </div>
-        <div class="relative mt-auto">
-            <a class="px-4 py-3 rounded-lg text-white bg-[#4338ca] hover:bg-[#31298f] transition-colors duration-200 ease-in-out cursor-pointer"
+
+        <!-- Button Section -->
+        <div class="mt-auto flex justify-end">
+            <a class="px-4 py-3 rounded-lg text-white bg-[#4338ca] hover:bg-[#31298f] transition-colors duration-200 ease-in-out cursor-pointer relative right-2 mb-3"
                 href="{% url 'post-detail-page' post.slug %}">
                 Read More
             </a>

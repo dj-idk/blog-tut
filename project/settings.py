@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     # 3rd party
     "tailwind",
     "theme",
+    "widget_tweaks",
     "django_browser_reload",
 ]
 
@@ -121,6 +122,8 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATICFILES_DIR = [BASE_DIR / "static"]
+MEDIA_ROOT = BASE_DIR / "uploads"
+MEDIA_URL = "/files/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
